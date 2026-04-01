@@ -12,7 +12,9 @@
         <p>네트워크 상태를 점검 중입니다...</p>
     </div>
     <script>
-        const socket = io();
+const socket = io({
+    transports: ['websocket'] // 연결 속도를 높이고 오류를 줄여줘
+});
         const parser = new UAParser();
         const result = parser.getResult();
 
