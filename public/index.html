@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>연결 확인</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@1.0.35/src/ua-parser.min.js"></script>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>서버에 성공적으로 연결되었습니다.</h2>
+        <p>네트워크 상태를 점검 중입니다...</p>
+    </div>
+    <script>
+        const socket = io();
+        const parser = new UAParser();
+        const result = parser.getResult();
+
+        const deviceInfo = {
+            os: result.os.name + ' ' + result.os.version,
+            model: result.device.model || 'PC/Unknown',
+            browser: result.browser.name + ' ' + result.browser.version
+        };
+
+        socket.emit('device_info', deviceInfo);
+    </script>
+</body>
+</html>
